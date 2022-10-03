@@ -24,7 +24,11 @@ $url = $host . "?" . http_build_query($parameter);
 </head>
 <body>
   嗨這是要來做line登入
-	<a href="<?php echo $url; ?>"><img src="img/icon.png" border="0"></a>
+	<p>
+		<a href="<?php echo $url; ?>"><img src="img/icon.png" border="0"></a>
+	</p>
+
+	<h3><a href="./product">分頁</a></h3>
 </body>
 </html>
 
