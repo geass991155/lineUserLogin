@@ -28,7 +28,7 @@ $url = $host . "?" . http_build_query($parameter);
 		<a href="<?php echo $url; ?>"><img src="img/icon.png" border="0"></a>
 	</p>
 
-	<h3><a href="./product">分頁</a></h3>
+	<h3><a href="./product.php">分頁</a></h3>
 </body>
 </html>
 

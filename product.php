@@ -10,8 +10,8 @@
 	<title>LineLogin | 商品</title>
 </head>
 <body>
-  <h1><a href="./index"><?php echo $config["heardname"]?></a></h1>
-  回首頁</p>
+  <h1><a href="./index.php">回首頁</a></h1>
+  </p>
   分頁
 </body>
 </html>
