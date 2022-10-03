@@ -1,8 +1,6 @@
 <?php
-require_once('_inc/ConfigManager.php'); //Line 設定檔 管理器
-require_once('_inc/LineAuthorization.php'); //產生登入網址
-require_once('_inc/LineProfiles.php'); //取得用戶端 Profile
-require_once('_inc/LineController.php'); //LINE控制
+require_once('./ConfigManager.php'); //Line 設定檔 管理器
+require_once('./getLineProfiles.php'); //取得用戶端 Profile
 require_once('./config.php'); //設定值
 
 // 用code取得access_token，access_token取得用戶資料
