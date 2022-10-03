@@ -83,15 +83,15 @@ class LineProfiles
      */
     public function getAccessToken($code)
     {
-        $config = $this->configManager->getConfigs();
+      include_once('./config.php'); //設定值
 
         $url = "https://api.line.me/oauth2/v2.1/token";
         $query = "";
         $query .= "grant_type=" . urlencode("authorization_code") . "&";
         $query .= "code=" . urlencode($code) . "&";
-        $query .= "redirect_uri=" . urlencode($config[$this->configManager::CLIENT_REDIRECT_URI]) . "&";
-        $query .= "client_id=" . urlencode($config[$this->configManager::CLIENT_ID]) . "&";
-        $query .= "client_secret=" . urlencode($config[$this->configManager::CLIENT_SECRET]) . "&";
+        $query .= "redirect_uri=" . urlencode($config["REDIRECT_URI"]) . "&";
+        $query .= "client_id=" . urlencode($config["CLIENT_ID"]) . "&";
+        $query .= "client_secret=" . urlencode($config["CLIENT_SECRET"]) . "&";
         $header = array(
             "Content-Type: application/x-www-form-urlencoded",
             "Content-Length: " . strlen($query),

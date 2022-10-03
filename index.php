@@ -1,11 +1,10 @@
 <?php
-require_once('./ConfigManager.php'); //Line 設定檔 管理器
-require_once('./getLineProfiles.php'); //取得用戶端 Profile
-require_once('./config.php'); //設定值
+include_once('include/getLineProfiles.php'); //取得用戶端 Profile
+include_once('include/config.php'); //設定值
 
 $state=sha1(time());
-$config = $this->configManager->getConfigs();
-$scope = str_replace(",","%20",$config[ $this->configManager::CLIENT_SCOPE ] );
+
+$scope = str_replace(",","%20",$config["SCOPE"] );
 $parameter = [
 	'response_type' => 'code',
 	'client_id' => '1657522596',

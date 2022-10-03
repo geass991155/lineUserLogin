@@ -11,7 +11,10 @@ $access_token = $Line->getAccessToken($code);//取得使用者資料
 
 setcookie("access_token",$access_token, time()+3600*24*20);//把他記憶20天
 $user = $Line->getLineProfile_access_token($access_token);//取得使用者資料
-
+if (!$code) {
+	echo "<script> window.alert('code錯誤');";
+	echo "location.href='index';</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
