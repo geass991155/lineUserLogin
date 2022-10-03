@@ -1,0 +1,1 @@
+index: gunicorn app:app
