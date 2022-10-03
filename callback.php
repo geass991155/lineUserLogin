@@ -1,9 +1,7 @@
 <?php
-
-
 // 用code取得access_token，access_token取得用戶資料
-$code = $_GET['code'];
-$state = $_GET['state'];
+$code = $_GET["code"];
+$state = $_GET["state"];
 
 include_once('include/LineProfiles.php'); //取得用戶端 Profile
 include_once('include/config.php'); //設定值
@@ -12,10 +10,14 @@ $access_token = getAccessToken($code,$config); //取得使用者資料
 
 setcookie("access_token", $access_token, time() + 3600 * 24 * 20); //把他記憶20天
 $user = getLineProfile_access_token($access_token); //取得使用者資料
-$user2 = json_encode($user,true);
-echo "使用者：";
-echo gettype($user2);
-// echo $user2.["userId"];
+$userId="";
+foreach($user as $key => $value) {
+	if ($key == "userId") {
+		$userId = $value;
+	}
+}
+$send = sendMessage($userId,$config);
+print_r($send);
 if (!$code) {
 	echo "<script> window.alert('code錯誤');";
 	echo "location.href='index';</script>";
@@ -35,7 +37,7 @@ if (!$code) {
 	使用者資料
 	<?php
 	if ($user) {
-		echo $user;
+		print_r($user);
 	}
 	else {
 		echo "沒有";

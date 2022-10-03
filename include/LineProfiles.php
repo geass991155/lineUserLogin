@@ -50,11 +50,12 @@ function getLineProfile_access_token($accessToken)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
     $result = curl_exec($ch);
-    
+    $decode_user_data = json_decode((string)$result, true);
+    // echo $decode_user_data;
     curl_close($ch);
     // $result = json_decode($result);
     
-    return $result;
+    return $decode_user_data;
 }
 
 
@@ -112,6 +113,7 @@ function getAccessToken($code,$config)
  */
 function sendMessage($userid, $config)
 {
+    
     $headerData = [
         "content-type: application/json",
         "charset=UTF-8",
@@ -121,12 +123,14 @@ function sendMessage($userid, $config)
     $postData = array(
         "to"=> $userid,
         "messages"=>[
+            [
             "type"=>"text",
             "text"=>"Hello, 測試訊息"
+            ]
         ],
     );
     $data = json_encode($postData);
-
+    echo $data;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
