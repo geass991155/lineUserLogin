@@ -1,0 +1,141 @@
+<?php
+
+
+/**
+ * 取得用戶端 Profile
+ *
+ * @see https://developers.line.biz/en/docs/social-api/getting-user-profiles/
+ * @param $code
+ * @return bool|mixed|string
+ * @throws LineAccessTokenNotFoundException
+ */
+function get($code)
+{
+    $accessToken = self::getAccessToken($code);
+    $headerData = [
+        "content-type: application/x-www-form-urlencoded",
+        "charset=UTF-8",
+        'Authorization: Bearer ' . $accessToken,
+    ];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/profile");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+    $result = json_decode($result);
+    $result['accessToken2'] = $accessToken;
+    return $result;
+}
+
+/**
+ * 取得用戶端 Profile 已經有 $accessTokene
+ *
+ * @see https://developers.line.biz/en/docs/social-api/getting-user-profiles/
+ * @param $code
+ * @return bool|mixed|string
+ * @throws LineAccessTokenNotFoundException
+ */
+function getLineProfile_access_token($accessToken)
+{
+    $headerData = [
+        "content-type: application/json",
+        "charset=UTF-8",
+        'Authorization: Bearer ' . $accessToken,
+    ];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/profile");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+    $result = curl_exec($ch);
+    
+    curl_close($ch);
+    // $result = json_decode($result);
+    
+    return $result;
+}
+
+
+
+/**
+ * 取得用戶端 Access Token
+ *
+ * @see https://developers.line.biz/en/docs/line-login/web/integrate-line-login/
+ * @param $code
+ * @return string
+ * @throws LineAccessTokenNotFoundException
+ */
+function getAccessToken($code,$config)
+{
+    $url = "https://api.line.me/oauth2/v2.1/token";
+    $query = "";
+    $query .= "grant_type=" . urlencode("authorization_code") . "&";
+    $query .= "code=" . urlencode($code) . "&";
+    $query .= "redirect_uri=" . urlencode($config["REDIRECT_URI"]) . "&";
+    $query .= "client_id=" . urlencode($config["CLIENT_ID"]) . "&";
+    $query .= "client_secret=" . urlencode($config["CLIENT_SECRET"]) . "&";
+    $header = array(
+        "Content-Type: application/x-www-form-urlencoded",
+        "Content-Length: " . strlen($query),
+    );
+    $context = array(
+        "http" => array(
+            "method" => "POST",
+            "header" => implode("\r\n", $header),
+            "content" => $query,
+            "ignore_errors" => true,
+        ),
+    );
+    
+    //---------------------
+    // id token を取得する
+    //---------------------
+    $res_json = file_get_contents($url, false, stream_context_create($context));
+    $info = json_decode($res_json);
+    
+    //print_r($info);
+    if (empty($info->access_token)) {
+        echo 'Can Not Find User Access Token';
+    }
+    return $info->access_token;
+}
+
+/**
+ * 取得用戶端 Access Token
+ *
+ * @see https://developers.line.biz/en/docs/line-login/web/integrate-line-login/
+ * @param $code
+ * @return string
+ * @throws LineAccessTokenNotFoundException
+ */
+function sendMessage($userid, $config)
+{
+    $headerData = [
+        "content-type: application/json",
+        "charset=UTF-8",
+        'Authorization: Bearer ' . $config["BEARER_TOKEN"],
+    ];
+
+    $postData = array(
+        "to"=> $userid,
+        "messages"=>[
+            "type"=>"text",
+            "text"=>"Hello, 測試訊息"
+        ],
+    );
+    $data = json_encode($postData);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/push");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch,CURLOPT_POST,1);  //設定傳送方式為post請求
+    curl_setopt($ch,CURLOPT_POSTFIELDS,$data);  //設定post的資料
+
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return $result;
+}
