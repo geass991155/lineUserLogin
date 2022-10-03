@@ -1,17 +1,16 @@
 <?php
 $state=sha1(time());
-
+$scope = urlencode($config[ $this->configManager::CLIENT_SCOPE ]);
 $parameter = [
 	'response_type' => 'code',
 	'client_id' => '1657522596',
 	'redirect_uri' => 'https://lineuserlogin.herokuapp.com/callback.php',
 	'state' => $state,
-	'scope' =>'profile%20openid%20email',
 ];
 
 $host = "https://access.line.me/oauth2/v2.1/authorize" ;
 
-$url = $host . "?" . http_build_query($parameter);
+$url = $host . "?" . http_build_query($parameter). "&scope=". $scope ;
 
 ?>
 <!DOCTYPE html>
