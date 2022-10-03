@@ -1,6 +1,7 @@
 <?php
 $state=sha1(time());
-$scope = urlencode($config[ $this->configManager::CLIENT_SCOPE ]);
+$config = $this->configManager->getConfigs();
+$scope = str_replace(",","%20",$config[ $this->configManager::CLIENT_SCOPE ] );
 $parameter = [
 	'response_type' => 'code',
 	'client_id' => '1657522596',
