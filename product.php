@@ -23,10 +23,10 @@ if (! isset($_SESSION['displayName'])) {
   </p>
   登入完後到的地方
 	<?php
-	if($_SESSION['name']) {
+	if($_SESSION['displayName']) {
 		echo "<pre>";
 		echo "姓名：";
-		print_r($_SESSION['name']);
+		print_r($_SESSION['displayName']);
 		echo "</pre>";
 		
 		echo "<pre>";
