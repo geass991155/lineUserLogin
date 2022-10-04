@@ -141,7 +141,8 @@ function getEmail($id_token, $client_id)
     curl_setopt($ch,CURLOPT_POSTFIELDS,$data);  //設定post的資料
 
     $result = curl_exec($ch);
-    print_r(gettype($result));
+    $info = json_decode($result);
+    print_r($info);
     curl_close($ch);
     return $result;
 }
@@ -182,9 +183,9 @@ function getAccessToken($code,$config)
     $res_json = file_get_contents($url, false, stream_context_create($context));
     $info = json_decode($res_json);
     // id_token要解碼出email
-    print_r($info);
+    
     $getdata = getEmail($info->id_token,$config["CLIENT_ID"]);
-    print_r($getdata);
+    
     if (empty($info->access_token)) {
         echo 'Can Not Find User Access Token';
     }
