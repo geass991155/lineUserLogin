@@ -2,19 +2,7 @@
 include_once('include/getLineProfiles.php'); //取得用戶端 Profile
 include_once('include/config.php'); //設定值
 
-$state=sha1(time());
-
-$scope = str_replace(",","%20",$config["SCOPE"] );
-$parameter = [
-	'response_type' => 'code',
-	'client_id' => '1657522596',
-	'redirect_uri' => 'https://lineuserlogin.herokuapp.com/callback.php',
-	'state' => $state,
-];
-
-$host = "https://access.line.me/oauth2/v2.1/authorize" ;
-
-$url = $host . "?" . http_build_query($parameter). "&scope=". $scope ;
+$url = goLineLgoin($config);
 
 ?>
 <!DOCTYPE html>

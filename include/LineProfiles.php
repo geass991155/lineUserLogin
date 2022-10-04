@@ -30,6 +30,32 @@
 // }
 
 /**
+ * 去到line登入頁面
+ *
+ * @see https://developers.line.biz/en/docs/line-login/web/integrate-line-login/
+ * @param $code
+ * @return string
+ * @throws LineAccessTokenNotFoundException
+ */
+function goLineLgoin($config)
+{
+    $state=sha1(time());
+
+    $scope = str_replace(",","%20",$config["SCOPE"] );
+    $parameter = [
+        'response_type' => 'code',
+        'client_id' => $config["CLIENT_ID"],
+        'redirect_uri' => $config["REDIRECT_URI"],
+        'state' => $state,
+    ];
+
+    $host = "https://access.line.me/oauth2/v2.1/authorize" ;
+
+    $url = $host . "?" . http_build_query($parameter). "&scope=". $scope ;
+    return $url;
+}
+
+/**
  * 取得用戶端 Profile 已經有 $accessTokene
  *
  * @see https://developers.line.biz/en/docs/social-api/getting-user-profiles/
@@ -104,7 +130,7 @@ function getAccessToken($code,$config)
 }
 
 /**
- * 取得用戶端 Access Token
+ * 傳送訊息給user
  *
  * @see https://developers.line.biz/en/docs/line-login/web/integrate-line-login/
  * @param $code
