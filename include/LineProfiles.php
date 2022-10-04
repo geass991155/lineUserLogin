@@ -95,31 +95,55 @@ function getLineProfile_access_token($accessToken)
 function getEmail($id_token, $client_id)
 {
     
-    $url = "'https://api.line.me/oauth2/v2.1/verify";
-    $query = "";
-    $query .= "id_token=" .  urlencode($id_token) . "&";
-    $query .= "client_id=" . urlencode($client_id) . "&";
-    $header = array(
-        "Content-Type: application/x-www-form-urlencoded",
-        "Content-Length: " . strlen($query),
-    );
-    $context = array(
-        "http" => array(
-            "method" => "POST",
-            "header" => implode("\r\n", $header),
-            "content" => $query,
-            "ignore_errors" => true,
-        ),
-    );
+    // $url = "'https://api.line.me/oauth2/v2.1/verify";
+    // $query = "";
+    // $query .= "id_token=" .  urlencode($id_token) . "&";
+    // $query .= "client_id=" . urlencode($client_id) . "&";
+    // $header = array(
+    //     "Content-Type: application/x-www-form-urlencoded",
+    //     "Content-Length: " . strlen($query),
+    // );
+    // $context = array(
+    //     "http" => array(
+    //         "method" => "POST",
+    //         "header" => implode("\r\n", $header),
+    //         "content" => $query,
+    //         "ignore_errors" => true,
+    //     ),
+    // );
     
-    //---------------------
-    // id token を取得する
-    //---------------------
-    $res_json = file_get_contents($url, false, stream_context_create($context));
-    $info = json_decode($res_json);
-    // id_token要解碼出email
-    echo($info);
-    return $info;
+    // //---------------------
+    // // id token を取得する
+    // //---------------------
+    // $res_json = file_get_contents($url, false, stream_context_create($context));
+    // $info = json_decode($res_json);
+    // // id_token要解碼出email
+    // echo($info);
+    // return $info;
+
+    $headerData = [
+        "content-type: application/x-www-form-urlencoded",
+        "charset=UTF-8",
+    ];
+
+    $postData = [
+        "id_token"=> $id_token,
+        "client_id"=> $client_id
+    ];
+    $data = http_build_query($postData);
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/verify");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch,CURLOPT_POST,1);  //設定傳送方式為post請求
+    curl_setopt($ch,CURLOPT_POSTFIELDS,$data);  //設定post的資料
+
+    $result = curl_exec($ch);
+    print_r(gettype($result));
+    curl_close($ch);
+    return $result;
 }
 
 /**
