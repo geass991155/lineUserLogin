@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once('include/LineProfiles.php'); //取得用戶端 Profile
 include_once('include/config.php'); //設定值
 
