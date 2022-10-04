@@ -84,7 +84,43 @@ function getLineProfile_access_token($accessToken)
     return $decode_user_data;
 }
 
-
+/**
+ * id_token解析email
+ *
+ * @see https://developers.line.biz/en/docs/line-login/web/integrate-line-login/
+ * @param $code
+ * @return string
+ * @throws LineAccessTokenNotFoundException
+ */
+function getEmail($id_token, $client_id)
+{
+    
+    $url = "'https://api.line.me/oauth2/v2.1/verify";
+    $query = "";
+    $query .= "id_token=" .  urlencode($id_token) . "&";
+    $query .= "client_id=" . urlencode($client_id) . "&";
+    $header = array(
+        "Content-Type: application/x-www-form-urlencoded",
+        "Content-Length: " . strlen($query),
+    );
+    $context = array(
+        "http" => array(
+            "method" => "POST",
+            "header" => implode("\r\n", $header),
+            "content" => $query,
+            "ignore_errors" => true,
+        ),
+    );
+    
+    //---------------------
+    // id token を取得する
+    //---------------------
+    $res_json = file_get_contents($url, false, stream_context_create($context));
+    $info = json_decode($res_json);
+    // id_token要解碼出email
+    print_r($info);
+    return $info;
+}
 
 /**
  * 取得用戶端 Access Token
@@ -121,9 +157,10 @@ function getAccessToken($code,$config)
     //---------------------
     $res_json = file_get_contents($url, false, stream_context_create($context));
     $info = json_decode($res_json);
+    // id_token要解碼出email
     print_r($info);
-    
-    //print_r($info);
+    $getdata = getEmail($info->id_token,$config["CLIENT_ID"] );
+    print_r($getdata);
     if (empty($info->access_token)) {
         echo 'Can Not Find User Access Token';
     }
