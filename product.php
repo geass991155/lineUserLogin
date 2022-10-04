@@ -3,9 +3,9 @@ include_once('include/LineProfiles.php'); //取得用戶端 Profile
 include_once('include/config.php'); //設定值
 
 $url = goLineLgoin($config);
-
+echo $_SESSION;
 if (! isset($_SESSION['displayName'])) {
-	header('Location: '.$url);
+	// header('Location: '.$url);
 	// echo "<script> location.href='".$url."';</script>";
 }
 ?>
