@@ -34,6 +34,7 @@ if (!$code) {
 </head>
 
 <body>
+	<h1><a href="./index.php">回首頁</a></h1>
 	使用者資料
 	<?php
 	if ($user) {
@@ -52,9 +53,10 @@ if (!$code) {
 		echo "<pre>";
 		print_r($result["1"]);
 		echo "</pre>";
+		
+		echo "<pre>";
 		echo "array";
 		print_r($result["1"]["email"]);
-		echo "<pre>";
 		echo "object";
 		print_r($result["1"]->email);
 		echo "</pre>";
