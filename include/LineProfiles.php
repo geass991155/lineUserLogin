@@ -189,7 +189,7 @@ function getAccessToken($code,$config)
     if (empty($info->access_token)) {
         echo 'Can Not Find User Access Token';
     }
-    return $info->access_token;
+    return array($info->access_token, $getdata);
 }
 
 /**

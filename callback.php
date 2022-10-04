@@ -6,10 +6,10 @@ $state = $_GET["state"];
 include_once('include/LineProfiles.php'); //取得用戶端 Profile
 include_once('include/config.php'); //設定值
 
-$access_token = getAccessToken($code,$config); //取得使用者資料
+$result = getAccessToken($code,$config); //取得使用者資料
 
-setcookie("access_token", $access_token, time() + 3600 * 24 * 20); //把他記憶20天
-$user = getLineProfile_access_token($access_token); //取得使用者資料
+setcookie("access_token", $result["0"], time() + 3600 * 24 * 20); //把他記憶20天
+$user = getLineProfile_access_token($result["0"]); //取得使用者資料
 $userId="";
 foreach($user as $key => $value) {
 	if ($key == "userId") {
@@ -37,13 +37,7 @@ if (!$code) {
 	使用者資料
 	<?php
 	if ($user) {
-		foreach ($user as $key => $value) {
-			echo "<pre>";
-			print_r($key.":");
-			echo "</pre>";
-			print_r($value);
-			echo "</pre>";
-		}
+		
 		echo "<pre>";
 		print_r($user);
 		echo "</pre>";
@@ -52,6 +46,18 @@ if (!$code) {
 	}
 	else {
 		echo "沒有";
+	}
+
+	if ($result["1"]) {
+		echo "<pre>";
+		print_r($result["1"]);
+		echo "</pre>";
+		echo "array";
+		print_r($result["1"]["email"]);
+		echo "<pre>";
+		echo "object";
+		print_r($result["1"]->email);
+		echo "</pre>";
 	}
 	?>
 
