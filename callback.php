@@ -37,7 +37,17 @@ if (!$code) {
 	使用者資料
 	<?php
 	if ($user) {
+		foreach ($user as $key => $value) {
+			echo "<pre>";
+			print_r($key.":");
+			echo "</pre>";
+			print_r($user);
+			echo "</pre>";
+		}
+		echo "<pre>";
 		print_r($user);
+		echo "</pre>";
+		
 	}
 	else {
 		echo "沒有";

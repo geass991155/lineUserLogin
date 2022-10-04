@@ -130,7 +130,7 @@ function sendMessage($userid, $config)
         ],
     );
     $data = json_encode($postData);
-    echo $data;
+    
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
