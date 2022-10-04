@@ -121,6 +121,7 @@ function getAccessToken($code,$config)
     //---------------------
     $res_json = file_get_contents($url, false, stream_context_create($context));
     $info = json_decode($res_json);
+    print_r($info);
     
     //print_r($info);
     if (empty($info->access_token)) {
