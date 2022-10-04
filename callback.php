@@ -1,4 +1,5 @@
 <?php
+session_start();//啟用Session功能
 // 用code取得access_token，access_token取得用戶資料
 $code = $_GET["code"];
 $state = $_GET["state"];
@@ -16,11 +17,19 @@ foreach($user as $key => $value) {
 		$userId = $value;
 	}
 }
-$send = sendMessage($userId,$config);
-print_r($send);
+$send = sendMessage($userId, $config);
+
+$_SESSION['name'] = $user["name"];
+$_SESSION['userId'] = $user["userId"];
+$_SESSION['email'] = $result["1"]->email;
+
 if (!$code) {
 	echo "<script> window.alert('code錯誤');";
 	echo "location.href='index';</script>";
+} 
+
+if($_SESSION['userId']) {
+	echo "location.href='product';</script>";
 }
 ?>
 <!DOCTYPE html>
@@ -55,7 +64,6 @@ if (!$code) {
 		echo "</pre>";
 		
 		echo "<pre>";
-		echo "object";
 		print_r($result["1"]->email);
 		echo "</pre>";
 	}
