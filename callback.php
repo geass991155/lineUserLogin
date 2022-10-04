@@ -55,8 +55,6 @@ if (!$code) {
 		echo "</pre>";
 		
 		echo "<pre>";
-		echo "array";
-		print_r($result["1"]["email"]);
 		echo "object";
 		print_r($result["1"]->email);
 		echo "</pre>";
