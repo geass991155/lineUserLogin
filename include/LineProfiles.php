@@ -144,7 +144,7 @@ function getEmail($id_token, $client_id)
     $info = json_decode($result);
     print_r($info);
     curl_close($ch);
-    return $result;
+    return $info;
 }
 
 /**
