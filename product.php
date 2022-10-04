@@ -6,7 +6,8 @@ include_once('include/config.php'); //設定值
 $url = goLineLgoin($config);
 echo $_SESSION;
 if (! isset($_SESSION['displayName'])) {
-	// header('Location: '.$url);
+	echo "沒有";
+	header('Location: '.$url);
 	// echo "<script> location.href='".$url."';</script>";
 }
 ?>
@@ -31,12 +32,12 @@ if (! isset($_SESSION['displayName'])) {
 		
 		echo "<pre>";
 		echo "userId：";
-		print_r($user["userId"]);
+		print_r($_SESSION["userId"]);
 		echo "</pre>";
 
 		echo "<pre>";
 		echo "email：";
-		print_r($user["email"]);
+		print_r($_SESSION["email"]);
 		echo "</pre>";
 	} else {
 		echo "沒有東西";
