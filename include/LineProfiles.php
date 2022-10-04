@@ -118,7 +118,7 @@ function getEmail($id_token, $client_id)
     $res_json = file_get_contents($url, false, stream_context_create($context));
     $info = json_decode($res_json);
     // id_token要解碼出email
-    print_r($info);
+    echo($info);
     return $info;
 }
 
@@ -159,7 +159,7 @@ function getAccessToken($code,$config)
     $info = json_decode($res_json);
     // id_token要解碼出email
     print_r($info);
-    $getdata = getEmail($info->id_token,$config["CLIENT_ID"] );
+    $getdata = getEmail($info->id_token,$config["CLIENT_ID"]);
     print_r($getdata);
     if (empty($info->access_token)) {
         echo 'Can Not Find User Access Token';

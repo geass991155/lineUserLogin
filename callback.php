@@ -41,7 +41,7 @@ if (!$code) {
 			echo "<pre>";
 			print_r($key.":");
 			echo "</pre>";
-			print_r($key);
+			print_r($value);
 			echo "</pre>";
 		}
 		echo "<pre>";
