@@ -41,12 +41,13 @@ if (!$code) {
 			echo "<pre>";
 			print_r($key.":");
 			echo "</pre>";
-			print_r($user);
+			print_r($key);
 			echo "</pre>";
 		}
 		echo "<pre>";
 		print_r($user);
 		echo "</pre>";
+		print_r($user["userId"]);
 		
 	}
 	else {
