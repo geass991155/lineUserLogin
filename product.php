@@ -6,8 +6,7 @@ include_once('include/config.php'); //設定值
 $url = goLineLgoin($config);
 
 if (! isset($_SESSION['displayName'])) {
-	echo "沒有";
-	// header('Location: '.$url);
+	header('Location: '.$url);
 	// echo "<script> location.href='".$url."';</script>";
 }
 
@@ -23,15 +22,14 @@ if (! isset($_SESSION['displayName'])) {
 	<title>LineLogin | 商品</title>
 </head>
 <body>
-	
+
 	<script type="text/javascript">
 		function logOut(){
 			var result ="<?php getLogout($config, $_SESSION['access_token'] ); ?>"
 			document.write(result);
 		}
 	</script>
-
-	<button type="button" onclick="logOut()">登出</button>
+	<a href="logout.php"><img src="img/logout.png" style="height: 50px; width: 50px;" alt=""> 登出</a>
 	<p>
   <h1><a href="./index.php">回首頁</a></h1>
   </p>
