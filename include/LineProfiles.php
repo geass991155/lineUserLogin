@@ -9,25 +9,25 @@
  * @return bool|mixed|string
  * @throws LineAccessTokenNotFoundException
  */
-function get($code)
-{
-    $accessToken = self::getAccessToken($code);
-    $headerData = [
-        "content-type: application/x-www-form-urlencoded",
-        "charset=UTF-8",
-        'Authorization: Bearer ' . $accessToken,
-    ];
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
-    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/profile");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+// function get($code)
+// {
+//     $accessToken = getAccessToken($code);
+//     $headerData = [
+//         "content-type: application/x-www-form-urlencoded",
+//         "charset=UTF-8",
+//         'Authorization: Bearer ' . $accessToken,
+//     ];
+//     $ch = curl_init();
+//     curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+//     curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/profile");
+//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-    $result = curl_exec($ch);
-    curl_close($ch);
-    $result = json_decode($result);
-    $result['accessToken2'] = $accessToken;
-    return $result;
-}
+//     $result = curl_exec($ch);
+//     curl_close($ch);
+//     $result = json_decode($result);
+//     $result['accessToken2'] = $accessToken;
+//     return $result;
+// }
 
 /**
  * 取得用戶端 Profile 已經有 $accessTokene
