@@ -5,7 +5,7 @@ include_once('include/config.php'); //設定值
 $url = goLineLgoin($config);
 
 if (!$_SESSION['name']) {
-	echo "location.href='".$url."';</script>";
+	echo "<script> location.href='".$url."';</script>";
 }
 ?>
 <!DOCTYPE html>

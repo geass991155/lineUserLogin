@@ -29,7 +29,7 @@ if (!$code) {
 } 
 
 if($_SESSION['userId']) {
-	echo "location.href='product';</script>";
+	echo "<script> location.href='product';</script>";
 }
 ?>
 <!DOCTYPE html>
