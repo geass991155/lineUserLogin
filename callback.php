@@ -19,7 +19,7 @@ foreach($user as $key => $value) {
 }
 $send = sendMessage($userId, $config);
 
-$_SESSION['name'] = $user["name"];
+$_SESSION['displayName'] = $user["displayName"];
 $_SESSION['userId'] = $user["userId"];
 $_SESSION['email'] = $result["1"]->email;
 
@@ -66,6 +66,8 @@ if($_SESSION['userId']) {
 		echo "<pre>";
 		print_r($result["1"]->email);
 		echo "</pre>";
+
+		echo $_SESSION['displayName'];
 	}
 	?>
 
