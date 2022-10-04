@@ -199,35 +199,32 @@ function sendMessage($userid, $config)
  * @param $userid ,$config
  * @return string
  */
-function getLogout($userid, $config)
+function getLogout($config, $accessToken)
 {
+    echo "Stay Safe";
+    $headerData = [
+        "content-type: application/x-www-form-urlencoded",
+        "charset=UTF-8",
+        'Authorization: Bearer ' . $config["BEARER_TOKEN"],
+    ];
 
-    // $headerData = [
-    //     "content-type: application/json",
-    //     "charset=UTF-8",
-    //     'Authorization: Bearer ' . $config["BEARER_TOKEN"],
-    // ];
+    $postData = array(
+        "client_id" => $config["CLIENT_ID"],
+        "client_secret" => $config["CLIENT_SECRET"],
+        "access_token" => $accessToken,
+    );
+    
+    $data = http_build_query($postData);
 
-    // $postData = array(
-    //     "to" => $userid,
-    //     "messages" => [
-    //         [
-    //             "type" => "text",
-    //             "text" => "Hello, 測試訊息"
-    //         ]
-    //     ],
-    // );
-    // $data = json_encode($postData);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/revoke");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
 
-    // $ch = curl_init();
-    // curl_setopt($ch, CURLOPT_POST, 1);
-    // curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
-    // curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/push");
-    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    // curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
-    // curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
-
-    // $result = curl_exec($ch);
-    // curl_close($ch);
-    // return $result;
+    $result = curl_exec($ch);
+    curl_close($ch);
+    return $result;
 }
