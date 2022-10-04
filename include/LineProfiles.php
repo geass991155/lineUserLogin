@@ -201,7 +201,6 @@ function sendMessage($userid, $config)
  */
 function getLogout($config, $accessToken)
 {
-    echo "Stay Safe";
     $headerData = [
         "content-type: application/x-www-form-urlencoded",
         "charset=UTF-8",
