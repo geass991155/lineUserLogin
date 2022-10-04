@@ -25,11 +25,11 @@ $_SESSION['email'] = $result["1"]->email;
 
 if (!$code) {
 	echo "<script> window.alert('code錯誤');";
-	echo "location.href='index';</script>";
+	echo "location.href='index.php';</script>";
 } 
 
 if($_SESSION['userId']) {
-	echo "<script> location.href='product';</script>";
+	echo "<script> location.href='product.php';</script>";
 }
 ?>
 <!DOCTYPE html>
