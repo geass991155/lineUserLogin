@@ -33,8 +33,8 @@ if (! isset($_SESSION['displayName'])) {
 <body>
 
 	<script type="text/javascript">
-		function logOut(){
-			var result ="<?php getLogout($config, $_SESSION['access_token'] ); ?>"
+		function sendMess(){
+			var result ="<?php sendMessage($_SESSION['userId'], $config);; ?>"
 			document.write(result);
 		}
 	</script>
@@ -64,6 +64,9 @@ if (! isset($_SESSION['displayName'])) {
 	}
 		
 	?>
+
+	<button onclick="sendMess()">寄出訊息</button>
+
 </body>
 
 </html>

@@ -13,8 +13,6 @@ setcookie("access_token", $result["0"], time() + 3600 * 24 * 20); //把他記憶
 $user = getLineProfile_access_token($result["0"]); //取得使用者資料
 $userId = $user["userId"];
 
-$send = sendMessage($userId, $config);
-
 $_SESSION['displayName'] = $user["displayName"];
 $_SESSION['userId'] = $user["userId"];
 $_SESSION['email'] = $result["1"]->email;
