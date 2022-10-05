@@ -177,6 +177,8 @@ function getAccessToken($code, $config)
 
     $result = curl_exec($ch);
     $info = json_decode($result);
+    print_r(gettype($info));
+    print_r($info);
 
     curl_close($ch);
 
