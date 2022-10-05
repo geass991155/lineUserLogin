@@ -159,11 +159,11 @@ function getAccessToken($code, $config)
     ];
 
     $postData = [
-        "grant_type" => urlencode("authorization_code"),
-        "code" => urlencode($code),
-        "redirect_uri" => urlencode($config["REDIRECT_URI"]),
-        "client_id" => urlencode($config["CLIENT_ID"]),
-        "client_secret" => urlencode($config["CLIENT_SECRET"]),
+        "grant_type" => "authorization_code",
+        "code" => $code,
+        "redirect_uri" => $config["REDIRECT_URI"],
+        "client_id" => $config["CLIENT_ID"],
+        "client_secret" => $config["CLIENT_SECRET"],
     ];
     $data = http_build_query($postData);
 
