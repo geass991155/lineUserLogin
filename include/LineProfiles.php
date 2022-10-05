@@ -122,35 +122,67 @@ function getEmail($id_token, $client_id)
  */
 function getAccessToken($code, $config)
 {
-    $url = "https://api.line.me/oauth2/v2.1/token";
-    $query = "";
-    $query .= "grant_type=" . urlencode("authorization_code") . "&";
-    $query .= "code=" . urlencode($code) . "&";
-    $query .= "redirect_uri=" . urlencode($config["REDIRECT_URI"]) . "&";
-    $query .= "client_id=" . urlencode($config["CLIENT_ID"]) . "&";
-    $query .= "client_secret=" . urlencode($config["CLIENT_SECRET"]) . "&";
-    $header = array(
-        "Content-Type: application/x-www-form-urlencoded",
-        "Content-Length: " . strlen($query),
-    );
-    $context = array(
-        "http" => array(
-            "method" => "POST",
-            "header" => implode("\r\n", $header),
-            "content" => $query,
-            "ignore_errors" => true,
-        ),
-    );
+    // $url = "https://api.line.me/oauth2/v2.1/token";
+    // $query = "";
+    // $query .= "grant_type=" . urlencode("authorization_code") . "&";
+    // $query .= "code=" . urlencode($code) . "&";
+    // $query .= "redirect_uri=" . urlencode($config["REDIRECT_URI"]) . "&";
+    // $query .= "client_id=" . urlencode($config["CLIENT_ID"]) . "&";
+    // $query .= "client_secret=" . urlencode($config["CLIENT_SECRET"]) . "&";
+    // $header = array(
+    //     "Content-Type: application/x-www-form-urlencoded",
+    //     "Content-Length: " . strlen($query),
+    // );
+    // $context = array(
+    //     "http" => array(
+    //         "method" => "POST",
+    //         "header" => implode("\r\n", $header),
+    //         "content" => $query,
+    //         "ignore_errors" => true,
+    //     ),
+    // );
 
-    $res_json = file_get_contents($url, false, stream_context_create($context));
-    $info = json_decode($res_json);
+    // $res_json = file_get_contents($url, false, stream_context_create($context));
+    // $info = json_decode($res_json);
+
+    // // id_token要解碼出email
+    // $getdata = getEmail($info->id_token, $config["CLIENT_ID"]);
+
+    // if (empty($info->access_token)) {
+    //     echo 'Can Not Find User Access Token';
+    // }
+    // return array($info->access_token, $getdata);
+
+    $headerData = [
+        "content-type: application/x-www-form-urlencoded",
+        "charset=UTF-8",
+    ];
+
+    $postData = [
+        "grant_type" => urlencode("authorization_code"),
+        "code" => urlencode($code),
+        "redirect_uri" => urlencode($config["REDIRECT_URI"]),
+        "client_id" => urlencode($config["CLIENT_ID"]),
+        "client_secret" => urlencode($config["CLIENT_SECRET"]),
+    ];
+    $data = http_build_query($postData);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/token");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
+
+    $result = curl_exec($ch);
+    $info = json_decode($result);
+
+    curl_close($ch);
 
     // id_token要解碼出email
     $getdata = getEmail($info->id_token, $config["CLIENT_ID"]);
 
-    if (empty($info->access_token)) {
-        echo 'Can Not Find User Access Token';
-    }
     return array($info->access_token, $getdata);
 }
 
