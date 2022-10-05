@@ -19,6 +19,10 @@ if (! isset($_SESSION['displayName'])) {
 	// echo "<script> location.href='".$url."';</script>";
 }
 
+if(isset($_POST['sendmess'])) {
+	sendMessage($_SESSION['userId'], $config);
+}
+
 ?>
 
 
@@ -33,10 +37,10 @@ if (! isset($_SESSION['displayName'])) {
 <body>
 
 	<script type="text/javascript">
-		function sendMess(){
-			var result ="<?php sendMessage($_SESSION['userId'], $config);; ?>"
-			document.write(result);
-		}
+		// function sendMess(){
+		// 	var result ="<?php sendMessage($_SESSION['userId'], $config);; ?>"
+		// 	document.write(result);
+		// }
 	</script>
 	<a href="logout.php"><img src="img/logout.png" style="height: 50px; width: 50px;" alt=""> 登出</a>
 	<p>
@@ -65,7 +69,9 @@ if (! isset($_SESSION['displayName'])) {
 		
 	?>
 
-	<button onclick="sendMess()">寄出訊息</button>
+		<form method="post">
+        <input type="submit" name="sendmess" value="sendmess"/>
+    </form>
 
 </body>
 
