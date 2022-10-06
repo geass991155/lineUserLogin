@@ -42,6 +42,14 @@ $url = goLineLgoin($config);
 		</div>
 	</nav>
 	
+	<div class="container">
+		<?php 
+			if (! isset($_SESSION['displayName'])) {
+				print_r("還沒登入");
+			} else {
+				print_r("已登入");
+			}?>
+	</div>
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
