@@ -5,7 +5,7 @@ include_once('include/config.php'); //設定值
 
 $url = goLineLgoin($config);
 if (! isset($_SESSION['displayName'])) {
-	header('Location: '.$url);
+	// header('Location: '.$url);
 }
 ?>
 <!DOCTYPE html>
@@ -49,21 +49,31 @@ if (! isset($_SESSION['displayName'])) {
 		  </ul>
 		  <div class="tab-content">
 		    <div id="home" class="tab-pane fade in active">
-		      <h3>名字：</h3>
-		      <p><?php print_r($_SESSION['displayName']); ?></p>
-					<h3>Userid：</h3>
-		      <p><?php print_r($_SESSION['userId']); ?></p>
-					<h3>Email：</h3>
-		      <p><?php print_r($_SESSION['email']); ?></p>
+					<div class="member">
+						<div class="form-group">
+							<label for="username">名字：</label>
+							<input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="<?php print_r($_SESSION['displayName']); ?>" readonly>
+						</div>
+						<div class="form-group">
+							<label for="userid">Userid：</label>
+							<input type="text" class="form-control" id="userid" placeholder="<?php print_r($_SESSION['userId']); ?>" readonly>
+						</div>
+						<div class="form-group">
+							<label for="userid">Email：</label>
+							<input type="text" class="form-control" id="userid" placeholder="<?php print_r($_SESSION['email']); ?>" readonly>
+						</div>
+					</div>
 		    </div>
 		    <div id="menu1" class="tab-pane fade">
-					<form action="sendMessage.php" method="post">
-						<div class="form-group">
-							<label for="message">訊息：</label>
-							<input type="text" name="message" id="message" class="form-control" placeholder="Message">
-						</div>
-						<button type="submit" class="btn btn-primary">Submit</button>
-					</form>	
+					<div class="member">
+						<form action="sendMessage.php" method="post">
+							<div class="form-group">
+								<label for="message">訊息：</label>
+								<input type="text" name="message" id="message" class="form-control" placeholder="Message">
+							</div>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>	
+					</div>
 		    </div>
 		  </div>
 		</div>
