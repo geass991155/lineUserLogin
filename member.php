@@ -1,9 +1,12 @@
 <?php
+session_start();
 include_once('include/LineProfiles.php'); //取得用戶端 Profile
 include_once('include/config.php'); //設定值
 
 $url = goLineLgoin($config);
-
+if (! isset($_SESSION['displayName'])) {
+	header('Location: '.$url);
+}
 ?>
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
