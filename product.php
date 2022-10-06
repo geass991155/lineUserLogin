@@ -10,9 +10,9 @@ if (! isset($_SESSION['displayName'])) {
 	// echo "<script> location.href='".$url."';</script>";
 }
 
-if(isset($_POST['sendmess'])) {
-	sendMessage($_SESSION['userId'], $config);
-}
+// if(isset($_POST['sendmess'])) {
+// 	sendMessage($_SESSION['userId'], $config);
+// }
 
 ?>
 
@@ -28,10 +28,10 @@ if(isset($_POST['sendmess'])) {
 <body>
 
 	<script type="text/javascript">
-		// function sendMess(){
-		// 	var result ="<?php sendMessage($_SESSION['userId'], $config);; ?>"
-		// 	document.write(result);
-		// }
+		function sendMess(){
+			<?php sendMessage($_SESSION['userId'], $config);?>
+
+		}
 	</script>
 	<a href="logout.php"><img src="img/logout.png" style="height: 50px; width: 50px;" alt=""> 登出</a>
 	<p>
@@ -60,9 +60,8 @@ if(isset($_POST['sendmess'])) {
 		
 	?>
 
-		<form method="post">
-        <input type="submit" name="sendmess" value="sendmess"/>
-    </form>
+  <input type="submit" name="sendmess" value="寄訊息" onclick="sendMess()"/>
+
 
 </body>
 
