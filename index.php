@@ -12,17 +12,38 @@ $url = goLineLgoin($config);
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0, user-scalable=yes">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>LineLogin</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 </head>
 <body>
-  嗨這是要來做line登入
+	<nav class="navbar navbar-inverse" role="navigation">
+		<div class="container-fluid"> 
+			<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+									data-target="#example-navbar-collapse">
+							<span class="sr-only">漢堡選單</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">line登入測試</a>
+			</div>
+			<div class="collapse navbar-collapse" id="example-navbar-collapse">
+				<ul class="nav navbar-nav mr-auto">
+					<li class="active"><a href="login.php">登入</a></li>
+					<li>
+						<a href="#">
+						<i class="bi-cart2" role="img" aria-label="cart"></i>
+						Cart
+						<span class="badge  text-white ms-1 rounded-pill">0</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 	
-	<p>
-		<a href="<?php echo $url; ?>"><img src="img/icon.png" border="0"></a>
-	</p>
-
-	<h3><a href="./product.php">分頁</a></h3>
-
-	<a href="logout.php"><img src="img/logout.png" style="height: 50px; width: 50px;" alt=""> 登出</a>
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
 

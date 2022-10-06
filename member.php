@@ -14,7 +14,7 @@ if (! isset($_SESSION['displayName'])) {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0, user-scalable=yes">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>LineLogin | 登入</title>
+	<title>LineLogin | 會員</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 	
@@ -33,7 +33,7 @@ if (! isset($_SESSION['displayName'])) {
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">line登入測試</a>
+					<a class="navbar-brand" href="index.php">line登入測試</a>
 			</div>
 			<div class="collapse navbar-collapse" id="example-navbar-collapse">
 				<ul class="nav navbar-nav mr-auto">
