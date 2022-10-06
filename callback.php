@@ -23,8 +23,9 @@ if (!$code) {
 	echo "location.href='index.php';</script>";
 }
 
-if ($_SESSION['userId']) {
-	echo "<script> location.href = 'product.php';</script>";
+if ($_SESSION['userId'] && $_SESSION['displayName'] && $_SESSION['email'] && $_SESSION['access_token']) {
+	// echo "<script> location.href = 'product.php';</script>";
+	echo $_SESSION['userId'];
 }
 
 ?>
