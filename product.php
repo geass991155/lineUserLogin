@@ -28,10 +28,7 @@ if (! isset($_SESSION['displayName'])) {
 <body>
 
 	<script type="text/javascript">
-		// function sendMess(){
-		// 	<?php echo sendMessage($_SESSION['userId'], $config);?>
-
-		// }
+	
 	</script>
 	<a href="logout.php"><img src="img/logout.png" style="height: 50px; width: 50px;" alt=""> 登出</a>
 	<p>
@@ -60,7 +57,7 @@ if (! isset($_SESSION['displayName'])) {
 		
 	?>
 
-	<a href="product.php"><img src="img/send.png" style="height: 50px; width: 50px;" alt="">寄出訊息</a>
+	<a href="sendMessage.php"><img src="img/send.jpg" style="height: 50px; width: 50px;" alt="">寄出訊息</a>
 
 
 </body>
