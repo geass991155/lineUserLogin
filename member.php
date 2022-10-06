@@ -70,6 +70,10 @@ if (! isset($_SESSION['displayName'])) {
 							<label for="userid">Email：</label>
 							<input type="text" class="form-control" id="userid" placeholder="<?php print_r($_SESSION['email']); ?>" readonly>
 						</div>
+						<div class="form-group">
+							<label for="userid">是否有加官方帳號：</label>
+							<input type="text" class="form-control" id="userid" placeholder="<?php print_r($_SESSION['friendship']); ?>" readonly>
+						</div>
 					</div>
 		    </div>
 		    <div id="menu1" class="tab-pane fade">

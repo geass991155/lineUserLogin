@@ -228,3 +228,35 @@ function getLogout($config, $accessToken)
     }
     
 }
+
+/**
+ * 取得user是否有加line官方帳號或是封鎖line官方帳號的狀態
+ *
+ * @param $accessToken
+ * @return array
+ */
+function getFriendship($accessToken)
+{
+    try {
+        $headerData = [
+            "content-type: application/json",
+            "charset=UTF-8",
+            'Authorization: Bearer ' . $accessToken,
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+        curl_setopt($ch, CURLOPT_URL, "https://api.line.me/friendship/v1/status");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    
+        $result = curl_exec($ch);
+        $decode_user_data = json_decode((string)$result, true);
+    
+        curl_close($ch);
+    
+        return $decode_user_data;
+    } catch (Exception $e) {
+        echo "<script> window.alert('無法與伺服器連線，請稍後。');</script>";
+        return $e;
+    } 
+    
+}

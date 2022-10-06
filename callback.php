@@ -25,10 +25,13 @@ if (isset($result["0"]->error) || isset($result["0"]->error)) {
 setcookie("access_token", $result["0"], time() + 3600 * 24 * 20); //把他記憶20天
 $user = getLineProfile_access_token($result["0"]); //取得使用者資料
 
+$friendship = getFriendship($result["0"]); //取得使用者資料// 加好友狀態
+
 $_SESSION['displayName'] = $user["displayName"];
 $_SESSION['userId'] = $user["userId"];
 $_SESSION['email'] = $result["1"]->email;
 $_SESSION['access_token'] = $result["0"];
+$_SESSION['friendship'] = $friendship["friendFlag"];
 
 if ($_SESSION['userId'] && $_SESSION['displayName'] && $_SESSION['email'] && $_SESSION['access_token']) {
 	echo "<script> location.href = 'member.php';</script>";
