@@ -15,7 +15,12 @@ if (!isset($displayName)) {
 	echo "<script> window.alert('請重新登入');";
 	echo "location.href='index.php';</script>";
 }
-getLogout($config, $_SESSION['access_token'] );
+$logout = getLogout($config, $_SESSION['access_token'] );
+echo "<script> window.alert(".$logout.");";
 session_destroy();
+unset($_SESSION['displayName']);
+unset($_SESSION['userId']);
+unset($_SESSION['email']);
+unset($_SESSION['access_token']);
 header("location:index.php");
 ?>
