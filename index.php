@@ -15,10 +15,7 @@ $url = goLineLgoin($config);
 </head>
 <body>
   嗨這是要來做line登入
-	<div>
-      <input type="checkbox" id="agree" name="agree">
-      <label for="agree">同意取得line 的 email使用，作為登入認證，不會在其他用途。</label>
-    </div>
+	
 	<p>
 		<a href="<?php echo $url; ?>"><img src="img/icon.png" border="0"></a>
 	</p>
