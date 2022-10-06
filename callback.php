@@ -26,7 +26,6 @@ if (!$code) {
 if ($_SESSION['userId']) {
 	echo "<script> location.href = 'product.php';</script>";
 }
-echo $_SESSION['userId'];
 
 ?>
 <!DOCTYPE html>
