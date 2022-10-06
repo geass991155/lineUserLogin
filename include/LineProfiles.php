@@ -1,34 +1,5 @@
 <?php
 
-
-/**
- * 取得用戶端 Profile
- *
- * @see https://developers.line.biz/en/docs/social-api/getting-user-profiles/
- * @param $code
- * @return bool|mixed|string
- * @throws LineAccessTokenNotFoundException
- */
-// function get($code)
-// {
-//     $accessToken = getAccessToken($code);
-//     $headerData = [
-//         "content-type: application/x-www-form-urlencoded",
-//         "charset=UTF-8",
-//         'Authorization: Bearer ' . $accessToken,
-//     ];
-//     $ch = curl_init();
-//     curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
-//     curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/profile");
-//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-//     $result = curl_exec($ch);
-//     curl_close($ch);
-//     $result = json_decode($result);
-//     $result['accessToken2'] = $accessToken;
-//     return $result;
-// }
-
 /**
  * 去到line登入頁面
  *
@@ -54,29 +25,35 @@ function goLineLgoin($config)
 }
 
 /**
- * 取得用戶端 Profile 已經有 $accessTokene
+ * 取得用戶端 Profile 已經有 $accessTokene，拿到userid、username等
  *
  * @param $accessToken
  * @return array
  */
 function getLineProfile_access_token($accessToken)
 {
-    $headerData = [
-        "content-type: application/json",
-        "charset=UTF-8",
-        'Authorization: Bearer ' . $accessToken,
-    ];
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
-    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/profile");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-    $result = curl_exec($ch);
-    $decode_user_data = json_decode((string)$result, true);
-
-    curl_close($ch);
-
-    return $decode_user_data;
+    try {
+        $headerData = [
+            "content-type: application/json",
+            "charset=UTF-8",
+            'Authorization: Bearer ' . $accessToken,
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+        curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/profile");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    
+        $result = curl_exec($ch);
+        $decode_user_data = json_decode((string)$result, true);
+    
+        curl_close($ch);
+    
+        return $decode_user_data;
+    } catch (Exception $e) {
+        echo "<script> window.alert('無法與伺服器連線，請稍後。');</script>";
+        return $e;
+    } 
+    
 }
 
 /**
@@ -87,31 +64,37 @@ function getLineProfile_access_token($accessToken)
  */
 function getEmail($id_token, $client_id)
 {
-    $headerData = [
-        "content-type: application/x-www-form-urlencoded",
-        "charset=UTF-8",
-    ];
-
-    $postData = [
-        "id_token" => $id_token,
-        "client_id" => $client_id
-    ];
-    $data = http_build_query($postData);
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
-    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/verify");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
-
-    $result = curl_exec($ch);
-    $info = json_decode($result);
-
-    curl_close($ch);
-
-    return $info;
+    try {
+        $headerData = [
+            "content-type: application/x-www-form-urlencoded",
+            "charset=UTF-8",
+        ];
+    
+        $postData = [
+            "id_token" => $id_token,
+            "client_id" => $client_id
+        ];
+        $data = http_build_query($postData);
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+        curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/verify");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
+    
+        $result = curl_exec($ch);
+        $info = json_decode($result);
+    
+        curl_close($ch);
+    
+        return $info;
+    } catch (Exception $e) {
+        echo "<script> window.alert('無法與伺服器連線，請稍後。');</script>";
+        return $e;
+    }
+    
 }
 
 /**
@@ -122,37 +105,43 @@ function getEmail($id_token, $client_id)
  */
 function getAccessToken($code, $config)
 {
-    $headerData = [
-        "content-type: application/x-www-form-urlencoded",
-        "charset=UTF-8",
-    ];
-
-    $postData = [
-        "grant_type" => "authorization_code",
-        "code" => $code,
-        "redirect_uri" => $config["REDIRECT_URI"],
-        "client_id" => $config["CLIENT_ID"],
-        "client_secret" => $config["CLIENT_SECRET"],
-    ];
-    $data = http_build_query($postData);
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
-    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/token");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
-
-    $result = curl_exec($ch);
-    $info = json_decode($result);
+    try {
+        $headerData = [
+            "content-type: application/x-www-form-urlencoded",
+            "charset=UTF-8",
+        ];
     
-    curl_close($ch);
-
-    // id_token要解碼出email
-    $getdata = getEmail($info->id_token, $config["CLIENT_ID"]);
-
-    return array($info->access_token, $getdata);
+        $postData = [
+            "grant_type" => "authorization_code",
+            "code" => $code,
+            "redirect_uri" => $config["REDIRECT_URI"],
+            "client_id" => $config["CLIENT_ID"],
+            "client_secret" => $config["CLIENT_SECRET"],
+        ];
+        $data = http_build_query($postData);
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+        curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/token");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
+    
+        $result = curl_exec($ch);
+        $info = json_decode($result);
+        
+        curl_close($ch);
+    
+        // id_token要解碼出email
+        $getdata = getEmail($info->id_token, $config["CLIENT_ID"]);
+    
+        return array($info->access_token, $getdata);
+    } catch (Exception $e) {
+        echo "<script> window.alert('無法與伺服器連線，請稍後。');</script>";
+        return $e;
+    }
+    
 }
 
 /**
@@ -163,35 +152,40 @@ function getAccessToken($code, $config)
  */
 function sendMessage($userid, $config, $message)
 {
-
-    $headerData = [
-        "content-type: application/json",
-        "charset=UTF-8",
-        'Authorization: Bearer ' . $config["BEARER_TOKEN"],
-    ];
-
-    $postData = array(
-        "to" => $userid,
-        "messages" => [
-            [
-                "type" => "text",
-                "text" => "Messages：".$message
-            ]
-        ],
-    );
-    $data = json_encode($postData);
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
-    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/push");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
-
-    $result = curl_exec($ch);
-    curl_close($ch);
-    return $result;
+    try {
+        $headerData = [
+            "content-type: application/json",
+            "charset=UTF-8",
+            'Authorization: Bearer ' . $config["BEARER_TOKEN"],
+        ];
+    
+        $postData = array(
+            "to" => $userid,
+            "messages" => [
+                [
+                    "type" => "text",
+                    "text" => "Messages：".$message
+                ]
+            ],
+        );
+        $data = json_encode($postData);
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+        curl_setopt($ch, CURLOPT_URL, "https://api.line.me/v2/bot/message/push");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
+    
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    } catch (Exception $e) {
+        echo "<script> window.alert('訊息無法傳遞，請重新嘗試');</script>";
+        return $e;
+    } 
+    
 }
 
 /**
@@ -202,29 +196,35 @@ function sendMessage($userid, $config, $message)
  */
 function getLogout($config, $accessToken)
 {
-    $headerData = [
-        "content-type: application/x-www-form-urlencoded",
-        "charset=UTF-8",
-        'Authorization: Bearer ' . $config["BEARER_TOKEN"],
-    ];
-
-    $postData = array(
-        "client_id" => $config["CLIENT_ID"],
-        "client_secret" => $config["CLIENT_SECRET"],
-        "access_token" => $accessToken,
-    );
+    try {
+        $headerData = [
+            "content-type: application/x-www-form-urlencoded",
+            "charset=UTF-8",
+            'Authorization: Bearer ' . $config["BEARER_TOKEN"],
+        ];
     
-    $data = http_build_query($postData);
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
-    curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/revoke");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
-
-    $result = curl_exec($ch);
-    curl_close($ch);
-    return $result;
+        $postData = array(
+            "client_id" => $config["CLIENT_ID"],
+            "client_secret" => $config["CLIENT_SECRET"],
+            "access_token" => $accessToken,
+        );
+        
+        $data = http_build_query($postData);
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headerData);
+        curl_setopt($ch, CURLOPT_URL, "https://api.line.me/oauth2/v2.1/revoke");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1); //設定傳送方式為post請求
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data); //設定post的資料
+    
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }  catch (Exception $e) {
+        echo "<script> window.alert('無法與伺服器連線，請稍後。');</script>";
+        return $e;
+    }
+    
 }
