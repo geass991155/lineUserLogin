@@ -37,8 +37,7 @@ if (! isset($_SESSION['displayName'])) {
 			</div>
 			<div class="collapse navbar-collapse" id="example-navbar-collapse">
 				<ul class="nav navbar-nav mr-auto">
-				<li class="active"><a href="login.php">首頁</a></li>
-					<li><a href="member.php">會員</a></li>
+					<li class="active"><a href="member.php">會員</a></li>
 					<li><a href="logout.php">登出</a></li>
 					<li>
 						<a href="#">

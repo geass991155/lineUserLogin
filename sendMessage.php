@@ -1,6 +1,6 @@
 <?php
 /**
- * 登出處理
+ * 寄出訊息
  *
  */
 include_once('include/LineProfiles.php'); //取得用戶端 Profile
@@ -18,5 +18,5 @@ if (isset($displayName)) {
 
 $message = $_POST["message"] ? $_POST["message"] : "HELLO";
 sendMessage($_SESSION['userId'], $config, $message);
-header("location:product.php");
+header("location:member.php");
 ?>
