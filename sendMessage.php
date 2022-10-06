@@ -15,6 +15,8 @@ if (isset($displayName)) {
 	echo "<script> window.alert('請重新登入');";
 	echo "location.href='index.php';</script>";
 }
-sendMessage($_SESSION['userId'], $config);
+
+$message = $_POST["message"] ? $_POST["message"] : "HELLO";
+sendMessage($_SESSION['userId'], $config, $message);
 header("location:product.php");
 ?>

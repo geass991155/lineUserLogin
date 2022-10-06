@@ -51,13 +51,20 @@ if (! isset($_SESSION['displayName'])) {
 		echo "email：";
 		print_r($_SESSION["email"]);
 		echo "</pre>";
+		?>
+		<form action="sendMessage.php" method="post">
+			訊息: <input type="text" name="message">
+			<input type="submit" value="提交">
+		</form>
+
+			<a href="sendMessage.php"><img src="img/send.jpg" style="height: 50px; width: 50px;" alt="">寄出訊息</a>
+		<?php
 	} else {
 		echo "沒有東西";
 	}
 		
 	?>
 
-	<a href="sendMessage.php"><img src="img/send.jpg" style="height: 50px; width: 50px;" alt="">寄出訊息</a>
 
 
 </body>

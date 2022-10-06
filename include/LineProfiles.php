@@ -161,7 +161,7 @@ function getAccessToken($code, $config)
  * @param $userid ,$config
  * @return string
  */
-function sendMessage($userid, $config)
+function sendMessage($userid, $config, $message)
 {
 
     $headerData = [
@@ -175,7 +175,7 @@ function sendMessage($userid, $config)
         "messages" => [
             [
                 "type" => "text",
-                "text" => "Hello, 測試訊息"
+                "text" => "Messages：".$message
             ]
         ],
     );
