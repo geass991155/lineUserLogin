@@ -5,7 +5,7 @@ include_once('include/config.php'); //設定值
 
 $url = goLineLgoin($config);
 if (! isset($_SESSION['displayName'])) {
-	// header('Location: '.$url);
+	header('Location: '.$url);
 }
 ?>
 <!DOCTYPE html>
@@ -23,13 +23,21 @@ if (! isset($_SESSION['displayName'])) {
 	
 </head>
 <body>
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
+		<nav class="navbar navbar-inverse" role="navigation">
+		<div class="container-fluid"> 
+			<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+									data-target="#example-navbar-collapse">
+							<span class="sr-only">漢堡選單</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+					</button>
 					<a class="navbar-brand" href="#">line登入測試</a>
-				</div>
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="index.php">首頁</a></li>
+			</div>
+			<div class="collapse navbar-collapse" id="example-navbar-collapse">
+				<ul class="nav navbar-nav mr-auto">
+				<li class="active"><a href="login.php">首頁</a></li>
 					<li><a href="member.php">會員</a></li>
 					<li><a href="logout.php">登出</a></li>
 					<li>
@@ -40,7 +48,8 @@ if (! isset($_SESSION['displayName'])) {
 					</li>
 				</ul>
 			</div>
-		</nav>
+		</div>
+	</nav>
 		
 	 	<div class="container">
 		  <ul class="nav nav-tabs">

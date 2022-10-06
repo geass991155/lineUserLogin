@@ -19,20 +19,29 @@ $url = goLineLgoin($config);
 	<link rel="stylesheet" href="./css/layout.css">
 </head>
 <body>
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
+	<nav class="navbar navbar-inverse" role="navigation">
+		<div class="container-fluid"> 
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">line登入測試</a>
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+									data-target="#example-navbar-collapse">
+							<span class="sr-only">漢堡選單</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">line登入測試</a>
 			</div>
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="index.php">首頁</a></li>
-				<li>
-					<a href="#">
-					<i class="bi-cart2" role="img" aria-label="cart"></i>
-					Cart
-					<span class="badge  text-white ms-1 rounded-pill">0</span></a>
-				</li>
-			</ul>
+			<div class="collapse navbar-collapse" id="example-navbar-collapse">
+				<ul class="nav navbar-nav mr-auto">
+					<li class="active"><a href="login.php">首頁</a></li>
+					<li>
+						<a href="#">
+						<i class="bi-cart2" role="img" aria-label="cart"></i>
+						Cart
+						<span class="badge  text-white ms-1 rounded-pill">0</span></a>
+					</li>
+				</ul>
+			</div>
 		</div>
 	</nav>
 
