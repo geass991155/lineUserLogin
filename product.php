@@ -1,13 +1,4 @@
 <?php
-/* 設置緩存限制為 “private” */
-
-session_cache_limiter('private');
-$cache_limiter = session_cache_limiter();
-
-/* 設置緩存過期時間為30分鐘 */
-session_cache_expire(30);
-$cache_expire = session_cache_expire();
-
 session_start();
 include_once('include/LineProfiles.php'); //取得用戶端 Profile
 include_once('include/config.php'); //設定值
