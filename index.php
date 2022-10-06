@@ -24,6 +24,8 @@ $url = goLineLgoin($config);
 	</p>
 
 	<h3><a href="./product.php">分頁</a></h3>
+
+	<a href="logout.php"><img src="img/logout.png" style="height: 50px; width: 50px;" alt=""> 登出</a>
 </body>
 </html>
 
